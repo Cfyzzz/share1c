@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load extras_1c %}
+{% block main %}
+<div id="code">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div id="view_code" name="view_code">
+
+            <pre>{{ record.row_code|format1c|safe }}</pre>
+
+        </div>
+        <div id="knopka">
+              <button onclick="CopyToClipboard()" class="knopka">Копировать все</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+
+{% block create_date %}
+{{ record.create_date }}
+{% endblock %}
+
+{% block scripts %}
+function CopyToClipboard() {
+  /* Get the text field */
+  var copyText = document.getElementById("view_code");
+  var r = document.createRange();
+  r.selectNode(copyText);
+  document.getSelection().addRange(r);
+
+  /* Select the text field */
+<!--  copyText.select();-->
+<!--  copyText.setSelectionRange(0, 99999); /*For mobile devices*/-->
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+<!--  alert("Copied the text: " + r.endContainer.innerText);-->
+}
+{% endblock %}

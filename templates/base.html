@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!doctype>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link type="text/css" href="{% static 'main2.css' %}" rel="stylesheet">
+    <title>{% block title %}{% endblock %} Share1C</title>
+  </head>
+  <body>
+  <wrapper>
+    <div id="header">
+      <h1>SHARE 1С</h1>
+    </div>
+    <div id="leftmenu">
+
+    </div>
+    <div id="main">
+      {% block main %}
+      {% endblock %}
+    </div>
+    <div id="footer">
+      <div id="table">
+        <div>Недовизин Александр</div>
+        <div>Sasha.Nedovizin@yandex.ru</div>
+        <div>{% block create_date %}{% endblock %}</div>
+      </div>
+    </div>
+  </wrapper>
+  <script>
+      {% block scripts %}
+      {% endblock %}
+    </script>
+  </body>
+</html>

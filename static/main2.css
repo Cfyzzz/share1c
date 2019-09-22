@@ -1,0 +1,113 @@
+html {
+
+    background:
+    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+
+
+}
+
+
+body{
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+wrapper {
+
+}
+
+h1 {
+    text-align: center;
+    color: gray;
+}
+
+#header{
+
+}
+
+#main {
+    background-color: rgb(253, 248, 171);
+    border-radius: 10px;
+    box-shadow: 0 0 15px 5px rgba(44, 82, 100, .75);
+    color: blue;
+    overflow: auto;
+    overflow: hidden;
+    height: 800px;
+}
+
+#code {
+    height: 100%;
+    display: block;
+    flex-direction: column;
+
+}
+
+
+
+#footer {
+    display: table;
+    width: 100%;
+}
+
+#table{
+    display: table-row;
+}
+
+
+#table div{
+    color: gray;
+    display: table-cell;
+}
+
+
+#view_code {
+    padding: 10px;
+    overflow: auto;
+    height: 750px;
+}
+
+.knopka{
+    height: 50px;
+    margin-left: 20px;
+}
+
+textarea[name=row_code] {
+    width: 100%;
+    height: 750px;
+    resize: none;
+    padding: 10px;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+
+.hlss{
+    color: red;
+}
+
+.hlkwq{
+    color: green;
+}
+
+.hlkw{
+    color: red;
+}
+
+.hlr{
+    color: green;
+}
+
+.hlq{
+    color: black;
+}

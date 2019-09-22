@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block main %}
+<form action="" method="post">
+    {% csrf_token %}
+    <div id=textcode>
+        <textarea name=row_code></textarea>
+    </div>
+    <input type=submit value="Поделиться" class="knopka" name="_new_record">
+</form>
+{% endblock %}
