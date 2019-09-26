@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
         url(r'^$', RedirectView.as_view(url='/new/', permanent=True)),
-        url(r'^(?P<pk>[0-9]+)/$', views.detail, name='detail'),
+        url(r'^(?P<uid>\w+)/$', views.detail, name='detail'),
         ]

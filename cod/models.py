@@ -18,6 +18,9 @@ class Tags(models.Model):
 class Cod(models.Model):
     row_code = models.TextField("code")
     create_date = models.DateTimeField(u"Дата создания", auto_now_add=True)
+    uid = models.TextField(null=True,
+                           blank=True,
+                           db_column="uid")
     tegs = models.ForeignKey(Tags,
                              on_delete=models.CASCADE,
                              null=True,

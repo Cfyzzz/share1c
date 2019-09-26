@@ -1,3 +1,4 @@
+import secrets
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -13,9 +14,10 @@ def index(request):
             form = AddCodeForm(request.POST)
 
             if form.is_valid():
-                new_record = Cod(row_code=form.cleaned_data['row_code'])
+                uid = secrets.token_hex(nbytes=5)
+                new_record = Cod(row_code=form.cleaned_data['row_code'], uid=uid)
                 new_record.save()
-                return HttpResponseRedirect('/cod/' + str(new_record.pk))
+                return HttpResponseRedirect('/cod/' + str(new_record.uid))
 
     form = AddCodeForm(initial={'row_code': ""})
     context = {'form': form}
