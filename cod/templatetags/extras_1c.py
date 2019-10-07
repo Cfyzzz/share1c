@@ -9,7 +9,8 @@ spec_symbols = r'().,:;*+-/=[]{}<>?&'
 key_words_query = ['выбрать', 'из', 'где', 'сгруппировать по', 'имеющие', 'соединение', 'левое',
                    'правое', 'полное', 'левое полное соединение', 'по', 'внутреннее', 'объединить', 'все',
                    'правое полное соединение', 'левое внутреннее соединение', 'правое внутреннее соединение',
-                   'внутреннее соединение', 'поместить', 'как']
+                   'внутреннее соединение', 'поместить', 'как',
+                   'выбор', 'когда', 'конец']
 
 key_words = ['истина', 'ложь', 'новый', 'процедура', 'конецпроцедуры', 'для', 'цикл', 'конеццикла', 'прервать',
              'продолжить', 'для каждого', 'из', 'если', 'тогда', 'иначеесли', 'иначе', 'конецесли', 'перейти',
@@ -31,10 +32,12 @@ HLQ = "hlq"
 def format_1c(value):
     result = ""
     for line in map(str, value.split('\n')):
+        line = replace_qouta(line)
         line_ram = re.search(temp_ram, line)
         if line_ram:
             if line_ram.start():
-                line1 = format_1c_line(line[:line_ram.start() - 1])
+                end = 1 if line[-1] == '\n' else 0
+                line1 = format_1c_line(line[:line_ram.start() - end])
                 line2 = format_1c_line(line[line_ram.start():])
                 result += line1 + line2 + '\n'
             else:
@@ -60,12 +63,22 @@ def format_1c(value):
     return result
 
 
+def replace_qouta(line):
+    line = line.replace("\'", "\"")
+    line = line.replace("«", "\"")
+    line = line.replace("»", "\"")
+    line = line.replace("”", "\"")
+    line = line.replace("“", "\"")
+    return line
+
+
 def format_1c_line(row_line):
     result = ""
     line = row_line.lower()
     ram = re.search(temp_ram, row_line)
     if ram:
-        result = wrap(row_line[ram.start():-1], HLR)
+        end = 1 if row_line[-1] == '\n' else 0
+        result = wrap(row_line[ram.start():-end], HLR)
         return result
 
     qoute = re.search(temp_quote, row_line)
