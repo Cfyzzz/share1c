@@ -8,7 +8,6 @@ class AddCodeForm(forms.Form):
 
     @property
     def clean_new_code(self):
-        # code = self.cleaned_data['row_code']
         code = self.data['row_code']
 
         if code == "":
@@ -22,10 +21,10 @@ class ViewCodeForm(forms.Form):
 
     @property
     def clean_view_code(self):
-        # code = self.cleaned_data['row_code']
         code = self.data['row_code']
 
         if code == "":
             raise ValidationError(_('Invalid text code - text code is empty'))
 
         return code
+

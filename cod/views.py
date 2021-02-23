@@ -1,8 +1,5 @@
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-
-from new.forms import ViewCodeForm
 from cod.models import Cod
 
 

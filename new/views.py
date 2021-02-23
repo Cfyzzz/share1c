@@ -1,7 +1,6 @@
 import secrets
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
 
 from .forms import AddCodeForm
 from cod.models import Cod

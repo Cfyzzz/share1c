@@ -2,6 +2,9 @@ import re
 from django import template
 from django.template.defaultfilters import stringfilter
 
+NONE_SYMBOL = 0
+POINT_SYMBOL = 1
+
 register = template.Library()
 
 spec_symbols = r'().,:;*+-/=[]{}<>?&'
@@ -10,7 +13,7 @@ key_words_query = ['выбрать', 'из', 'где', 'сгруппироват
                    'правое', 'полное', 'левое полное соединение', 'по', 'внутреннее', 'объединить', 'все',
                    'правое полное соединение', 'левое внутреннее соединение', 'правое внутреннее соединение',
                    'внутреннее соединение', 'поместить', 'как',
-                   'выбор', 'когда', 'конец']
+                   'выбор', 'когда', 'конец', 'итоги']
 
 key_words = ['истина', 'ложь', 'новый', 'процедура', 'конецпроцедуры', 'для', 'цикл', 'конеццикла', 'прервать',
              'продолжить', 'для каждого', 'из', 'если', 'тогда', 'иначеесли', 'иначе', 'конецесли', 'перейти',
@@ -35,13 +38,13 @@ def format_1c(value):
         line = replace_qouta(line)
         line_ram = re.search(temp_ram, line)
         if line_ram:
+            line3 = line.rstrip()
             if line_ram.start():
-                end = 1 if line[-1] == '\n' else 0
-                line1 = format_1c_line(line[:line_ram.start() - end])
-                line2 = format_1c_line(line[line_ram.start():])
+                line1 = format_1c_line(line3[:line_ram.start()])
+                line2 = format_1c_line(line3[line_ram.start():])
                 result += line1 + line2 + '\n'
             else:
-                result += format_1c_line(line[:]) + '\n'
+                result += format_1c_line(line3[:]) + '\n'
         else:
             quotes = list(re.finditer(temp_quote, line))
             if quotes:
@@ -77,8 +80,8 @@ def format_1c_line(row_line):
     line = row_line.lower()
     ram = re.search(temp_ram, row_line)
     if ram:
-        end = 1 if row_line[-1] == '\n' else 0
-        result = wrap(row_line[ram.start():-end], HLR)
+        end = -1 if row_line[-1] == '\n' else len(row_line)
+        result = wrap(row_line[ram.start():end], HLR)
         return result
 
     qoute = re.search(temp_quote, row_line)
@@ -93,11 +96,12 @@ def format_1c_line(row_line):
     separate_line = [i for i in re.split(r'(\s+)|(\w+)|(\W)', line) if i]
     separate_row_line = [i for i in re.split(r'(\s+)|(\w+)|(\W)', row_line) if i]
 
+    pre_symbol = NONE_SYMBOL
     for idx, word in enumerate(separate_line):
         row_word = separate_row_line[idx]
         if word in spec_symbols:
             tag = HLSS
-        elif word in key_words_query:
+        elif word in key_words_query and pre_symbol != POINT_SYMBOL:
             tag = HLKWQ
         elif word in key_words:
             tag = HLKW
@@ -111,6 +115,11 @@ def format_1c_line(row_line):
             phrase = row_word
 
         old_tag = tag
+
+        if word == ".":
+            pre_symbol = POINT_SYMBOL
+        else:
+            pre_symbol = NONE_SYMBOL
 
     # if phrase != row_word or idx == 0:
     result += wrap(phrase, old_tag)

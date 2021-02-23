@@ -25,5 +25,4 @@ urlpatterns = [
      url(r'^cod/', include('cod.urls')),
      url(r'^new/', include('new.urls')),
      url(r'^$', RedirectView.as_view(url='/new/', permanent=True)),
-     #static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT),
      ]
